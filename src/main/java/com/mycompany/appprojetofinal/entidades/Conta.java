@@ -3,6 +3,7 @@ package com.mycompany.appprojetofinal.entidades;
 import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
+import java.util.Objects;
 
 public abstract class Conta {
 
@@ -57,5 +58,27 @@ public abstract class Conta {
 
     public abstract void transferir(Conta destino, double valor) throws
             SaldoInsuficienteException;
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.numero);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Conta other = (Conta) obj;
+        return Objects.equals(this.numero, other.numero);
+    }
 
 }
