@@ -1,7 +1,7 @@
 package com.mycompany.appprojetofinal.entidades;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
 public abstract class Conta {
 
     private String numero;
@@ -51,7 +51,7 @@ public abstract class Conta {
     public abstract void depositar(double valor);
     
     //Criar exceção para o metodo quando implementar nas classes contaCorrente e contaPoupança
-    public abstract void sacar(double valor);
+    public abstract void sacar(double valor)throws SaldoInsuficienteException;
     
 
     
