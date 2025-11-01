@@ -53,7 +53,6 @@ public abstract class Conta {
 
     public abstract void depositar(double valor);
 
-    
     public abstract void sacar(double valor) throws SaldoInsuficienteException;
 
     public abstract void transferir(Conta destino, double valor) throws
