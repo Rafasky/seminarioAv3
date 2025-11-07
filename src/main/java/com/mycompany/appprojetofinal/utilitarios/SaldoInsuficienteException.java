@@ -2,7 +2,10 @@ package com.mycompany.appprojetofinal.utilitarios;
 
 public class SaldoInsuficienteException extends Exception {
 
-    public SaldoInsuficienteException(String mensagem) {
-        super(mensagem);
+    public SaldoInsuficienteException() {
+        super("Saldo insuficiente");
+    }
+    public SaldoInsuficienteException(String s) {
+        super(s);
     }
 }

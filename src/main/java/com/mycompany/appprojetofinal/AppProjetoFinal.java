@@ -4,10 +4,6 @@
 
 package com.mycompany.appprojetofinal;
 
-/**
- *
- * @author alexandre.rafaschi
- */
 public class AppProjetoFinal {
 
     public static void main(String[] args) {

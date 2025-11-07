@@ -2,13 +2,15 @@ package com.mycompany.appprojetofinal.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
+
 import java.util.Objects;
 
 public abstract class Conta {
 
     private String numero;
-    private double saldo;
+    protected double saldo;
     private Cliente propietario;
     private List<String> historicoTransacoes;
 
@@ -43,7 +45,7 @@ public abstract class Conta {
         return historicoTransacoes;
     }
 
-    protected void adcionarTransacao(String descricao) {
+    protected void adicionarTransacao(String descricao) {
         if (descricao == null || descricao.trim().isEmpty()) {
             throw new IllegalArgumentException("Descricao nao pode ser vazia ou nula");
         }
