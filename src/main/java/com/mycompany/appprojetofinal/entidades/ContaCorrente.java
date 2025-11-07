@@ -55,8 +55,8 @@ public class ContaCorrente extends Conta {
 
         }
         sacar(valor);
-
         destino.depositar(valor);
+
         adicionarTransacao("Transferencia de R$:" + valor + "despositado na conta " + destino.getNumero());
         getHistoricoTransacoes().add("Transferencia de R$:" + valor + "despositado na conta " + destino.getNumero());
     }
