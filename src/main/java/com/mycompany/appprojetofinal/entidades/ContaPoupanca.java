@@ -3,7 +3,7 @@ package com.mycompany.appprojetofinal.entidades;
 import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
 
 public class ContaPoupanca extends Conta {
-    private double taxaRendimentoMensal;
+    private final double taxaRendimentoMensal;
 
     public ContaPoupanca(String numero, Cliente proprietario, double taxaRendimentoMensal) {
         super(numero, proprietario);
@@ -52,5 +52,13 @@ public class ContaPoupanca extends Conta {
         double rendimento = getSaldo() * taxaRendimentoMensal / 100;
         setSaldo(getSaldo() + rendimento);
         System.out.println("Rendimento mensal de R$:" + rendimento);
+    }
+
+    @Override
+    public String toString() {
+        return "ContaPoupanca{" +
+                "taxaRendimentoMensal=" + taxaRendimentoMensal +
+                ", saldo=" + saldo +
+                '}';
     }
 }

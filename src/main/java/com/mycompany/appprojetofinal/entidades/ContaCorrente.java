@@ -61,6 +61,12 @@ public class ContaCorrente extends Conta {
         getHistoricoTransacoes().add("Transferencia de R$:" + valor + "despositado na conta " + destino.getNumero());
     }
 
-
+    @Override
+    public String toString() {
+        return "ContaCorrente{" +
+                "saldo=" + saldo +
+                ", limiteChequeEspecial=" + limiteChequeEspecial +
+                '}';
+    }
 }
 
