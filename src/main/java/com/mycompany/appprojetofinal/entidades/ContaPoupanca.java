@@ -32,8 +32,7 @@ public class ContaPoupanca extends Conta {
     }
 
     @Override
-    public void transferir(Conta destino, double valor) throws
-            SaldoInsuficienteException {
+    public void transferir(Conta destino, double valor) throws SaldoInsuficienteException {
         if (valor <= 0) {
             throw new IllegalArgumentException("valor invalido");
 
@@ -49,4 +48,9 @@ public class ContaPoupanca extends Conta {
         getHistoricoTransacoes().add("Transferencia de R$:" + valor + "despositado na conta " + destino.getNumero());
     }
 
+    public void renderJuros() {
+        double rendimento = getSaldo() * taxaRendimentoMensal / 100;
+        setSaldo(getSaldo() + rendimento);
+        System.out.println("Rendimento mensal de R$:" + rendimento);
+    }
 }

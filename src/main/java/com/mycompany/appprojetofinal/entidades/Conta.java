@@ -29,6 +29,10 @@ public abstract class Conta {
         propietario.adcionarConta(this);
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     public double getSaldo() {
         return saldo;
     }
