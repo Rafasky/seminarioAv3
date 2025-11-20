@@ -10,6 +10,7 @@ import com.mycompany.appprojetofinal.entidades.ContaCorrente;
 import com.mycompany.appprojetofinal.entidades.ContaPoupanca;
 import com.mycompany.appprojetofinal.utilitarios.ClienteNaoEncontradoException;
 import com.mycompany.appprojetofinal.utilitarios.ContaNaoEncontradaException;
+import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class BancoService {
         contas.put(numeroGerado, novaConta);
         return novaConta;
     }
+
     public Cliente buscarCliente(String cpf) throws ClienteNaoEncontradoException {
         Cliente c = clientes.get(cpf);
         if (c == null) {
