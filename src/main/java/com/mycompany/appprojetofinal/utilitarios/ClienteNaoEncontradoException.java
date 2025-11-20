@@ -8,6 +8,9 @@ package com.mycompany.appprojetofinal.utilitarios;
  *
  * @author alexandre.rafaschi
  */
-public class ClienteNaoEncontradoException {
+public class ClienteNaoEncontradoException extends Exception {
+public ClienteNaoEncontradoException(String s){
+    System.out.println("Cliente nao encontrado");
+}
     
 }

@@ -8,6 +8,12 @@ package com.mycompany.appprojetofinal.utilitarios;
  *
  * @author alexandre.rafaschi
  */
-public class ContaNaoEncontradaException {
+public class ContaNaoEncontradaException extends Exception {
+    public ContaNaoEncontradaException(){
+        System.out.println("Conta nao encontrada");
+    }
+    public ContaNaoEncontradaException(String s){
+        super(s);
+    }
     
 }

@@ -5,7 +5,7 @@ import com.mycompany.appprojetofinal.utilitarios.SaldoInsuficienteException;
 public class ContaPoupanca extends Conta {
     private final double taxaRendimentoMensal;
 
-    public ContaPoupanca(String numero, Cliente proprietario, double taxaRendimentoMensal) {
+    public ContaPoupanca(String numero, Cliente proprietario) {
         super(numero, proprietario);
         this.taxaRendimentoMensal = taxaRendimentoMensal;
 
