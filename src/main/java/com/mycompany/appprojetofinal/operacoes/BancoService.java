@@ -41,7 +41,7 @@ public class BancoService {
     }
 
     public Conta abrirConta(Cliente cliente, String tipoConta, double... parametros) throws ClienteNaoEncontradoException {
-        if (clientes.containsKey(cliente.getCpf())) {
+        if (!clientes.containsKey(cliente.getCpf())) {
             throw new ClienteNaoEncontradoException("Cliente ja cadastrado" + cliente.getCpf());
         }
         String numeroGerado = String.valueOf(proximoNumeroConta++);
