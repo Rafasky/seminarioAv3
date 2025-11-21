@@ -7,7 +7,7 @@ public class ContaPoupanca extends Conta {
 
     public ContaPoupanca(String numero, Cliente proprietario) {
         super(numero, proprietario);
-        this.taxaRendimentoMensal = taxaRendimentoMensal;
+        this.taxaRendimentoMensal = 0.5;
 
     }
 
