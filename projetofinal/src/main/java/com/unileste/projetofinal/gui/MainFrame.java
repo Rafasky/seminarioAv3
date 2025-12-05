@@ -1,29 +1,31 @@
 package com.unileste.projetofinal.gui;
 
+import com.unileste.projetofinal.operacoes.BancoService;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    
-    private ClientePanel clientePanel;
-    private ContaPanel contaPanel;
-    private OperacoesPanel operacoesPanel;
 
-    public MainFrame() {
+    public MainFrame(BancoService banco) {
+
         setTitle("Sistema Bancário");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(400, 300);
+        setLayout(new GridLayout(3, 1));
+
+        JButton btnCliente = new JButton("Gerenciar Clientes");
+        JButton btnConta = new JButton("Gerenciar Contas");
+        JButton btnOperacoes = new JButton("Operações");
+
+        btnCliente.addActionListener(e -> new ClientePanel(this, banco).setVisible(true));
+        btnConta.addActionListener(e -> new ContaPanel(this, banco).setVisible(true));
+        btnOperacoes.addActionListener(e -> new OperacoesPanel(this, banco).setVisible(true));
+
+        add(btnCliente);
+        add(btnConta);
+        add(btnOperacoes);
+
         setLocationRelativeTo(null);
-
-        clientePanel = new ClientePanel();
-        contaPanel = new ContaPanel();
-        operacoesPanel = new OperacoesPanel();
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Cliente", clientePanel);
-        tabbedPane.addTab("Conta", contaPanel);
-        tabbedPane.addTab("Operações", operacoesPanel);
-
-        add(tabbedPane, BorderLayout.CENTER);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
