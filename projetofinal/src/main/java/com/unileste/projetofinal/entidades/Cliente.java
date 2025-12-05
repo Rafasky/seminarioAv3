@@ -1,82 +1,43 @@
 package com.unileste.projetofinal.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class Cliente {
+public class Cliente implements Serializable {
 
-    private final String nome;
-    private final String cpf;
+    private static final long serialVersionUID = 1L;
+
+    private String nome;
+    private String cpf;
     private String endereco;
-    private List<Conta> contas;
+    private List<Conta> contas = new ArrayList<>();
 
     public Cliente(String nome, String cpf, String endereco) {
-
-        if (nome == null || nome.trim().isEmpty()) {
+        if (nome == null || nome.isBlank())
             throw new IllegalArgumentException("Nome nao pode ficar vazio");
-        }
-        if (cpf == null || cpf.trim().isEmpty()) {
+        if (cpf == null || cpf.isBlank())
             throw new IllegalArgumentException("CPF nao pode ficar vazio");
-        }
+
         this.nome = nome;
-        this.endereco = endereco;
         this.cpf = cpf;
-        this.contas=new ArrayList<>();
-    }
-
-    public List getContas() {
-        return contas;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    public void adcionarConta(Conta conta) {
+    public void adicionarConta(Conta conta) {
         contas.add(conta);
     }
 
+    public List<Conta> getContas() {
+        return contas;
+    }
+
+    public String getNome() { return nome; }
+    public String getCpf() { return cpf; }
+    public String getEndereco() { return endereco; }
+
     @Override
     public String toString() {
-        return "Cliente{"
-                + "nome: " + nome + "\n"
-                + "CPF: " + cpf + "\n"
-                + "endereco: " + endereco + "\n"
-                + "contas: " + contas.size()
-                + "}";
+        return nome + " (CPF: " + cpf + ")";
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cpf);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cliente other = (Cliente) obj;
-        return Objects.equals(this.cpf, other.cpf);
-    }
-
 }

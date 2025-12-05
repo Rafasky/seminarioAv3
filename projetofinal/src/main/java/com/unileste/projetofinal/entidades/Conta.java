@@ -1,87 +1,35 @@
 package com.unileste.projetofinal.entidades;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import com.unileste.projetofinal.utilitarios.SaldoInsuficienteException;
+import java.io.Serializable;
 
-public abstract class Conta {
+public abstract class Conta implements Serializable {
 
-    private String numero;
+    private static final long serialVersionUID = 1L;
+
+    protected String numero;
     protected double saldo;
-    private Cliente propietario;
-    private List<String> historicoTransacoes;
+    protected Cliente cliente;
 
-    public Conta(String numero, Cliente propietario) {
-        if (numero == null || numero.trim().isEmpty()) {
-            throw new IllegalArgumentException("Numero da conta nao pode ficar vazio ou ser nulo");
-        }
-        if (propietario == null) {
-            throw new IllegalArgumentException("Propietario da conta nao pode ser nulo");
-        }
+    public Conta(String numero, Cliente cliente) {
+        if (numero == null || numero.isBlank())
+            throw new IllegalArgumentException("Numero inválido");
+        if (cliente == null)
+            throw new IllegalArgumentException("Cliente inválido");
+
         this.numero = numero;
-        this.propietario = propietario;
-        this.saldo = 0.0;
-        this.historicoTransacoes = new ArrayList<>();
-
-        propietario.adcionarConta(this);
+        this.cliente = cliente;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public void depositar(double valor) {
+        saldo += valor;
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public Cliente getPropietario() {
-        return propietario;
-    }
-
-    public List<String> getHistoricoTransacoes() {
-        return historicoTransacoes;
-    }
-
-    protected void adicionarTransacao(String descricao) {
-        if (descricao == null || descricao.trim().isEmpty()) {
-            throw new IllegalArgumentException("Descricao nao pode ser vazia ou nula");
-        }
-        this.historicoTransacoes.add(descricao);
-
-    }
-
-    public abstract void depositar(double valor);
-
-    public abstract void sacar(double valor) throws SaldoInsuficienteException;
-
-    public abstract void transferir(Conta destino, double valor) throws
-            SaldoInsuficienteException;
+    public String getNumero() { return numero; }
+    public double getSaldo() { return saldo; }
+    public Cliente getCliente() { return cliente; }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.numero);
-        return hash;
+    public String toString() {
+        return numero + " | Saldo: R$ " + saldo;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Conta other = (Conta) obj;
-        return Objects.equals(this.numero, other.numero);
-    }
-
 }

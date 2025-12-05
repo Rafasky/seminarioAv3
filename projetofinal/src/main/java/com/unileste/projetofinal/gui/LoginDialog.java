@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginDialog extends JDialog {
-    
+
     private boolean authenticated = false;
 
     public LoginDialog(JFrame parent) {
@@ -14,6 +14,7 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new GridLayout(3, 2, 10, 10));
 
+        // Componentes de login
         JLabel lblUser = new JLabel("Usuário:");
         JLabel lblPass = new JLabel("Senha:");
 
@@ -23,6 +24,7 @@ public class LoginDialog extends JDialog {
         JButton btnLogin = new JButton("Entrar");
         JButton btnCancelar = new JButton("Cancelar");
 
+        // Ação para login
         btnLogin.addActionListener(e -> {
             String user = txtUser.getText();
             String pass = new String(txtPass.getPassword());
@@ -31,12 +33,14 @@ public class LoginDialog extends JDialog {
                 authenticated = true;
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Credenciais inválidas ❗");
+                JOptionPane.showMessageDialog(this, "Credenciais inválidas!!!");
             }
         });
 
+        // Ação para cancelar o login
         btnCancelar.addActionListener(e -> dispose());
 
+        // Adicionar os componentes
         add(lblUser);
         add(txtUser);
         add(lblPass);
