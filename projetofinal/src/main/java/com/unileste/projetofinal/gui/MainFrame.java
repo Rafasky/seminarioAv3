@@ -1,11 +1,15 @@
 package com.unileste.projetofinal.gui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.unileste.projetofinal.dao.ClienteDAO;
 import com.unileste.projetofinal.dao.ContaDAO;
 import com.unileste.projetofinal.entidades.Cliente;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class MainFrame extends JFrame {
 
@@ -21,20 +25,33 @@ public class MainFrame extends JFrame {
         setSize(400, 200);
         setLayout(new GridLayout(3, 1, 5, 5));
 
+        JButton btnCadastrarCliente = new JButton("Cadastrar Cliente");
         JButton btnCliente = new JButton("Gerenciar Clientes");
         JButton btnConta = new JButton("Gerenciar Contas");
         JButton btnSair = new JButton("Sair");
 
+        btnCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
         btnCliente.addActionListener(e -> abrirGerenciarClientes());
         btnConta.addActionListener(e -> abrirGerenciarContas());
         btnSair.addActionListener(e -> System.exit(0));
 
+        add(btnCadastrarCliente);
         add(btnCliente);
         add(btnConta);
         add(btnSair);
 
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private void abrirCadastroCliente() {
+        JFrame f = new JFrame("Cadastrar Cliente");
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        f.add(new CadastroClientePanel(clienteDAO));
+        f.pack();
+        f.setLocationRelativeTo(this);
+        f.setVisible(true);
     }
 
     private void abrirGerenciarClientes() {

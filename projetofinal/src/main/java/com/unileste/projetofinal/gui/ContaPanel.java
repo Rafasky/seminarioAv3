@@ -1,12 +1,21 @@
 package com.unileste.projetofinal.gui;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
 import com.unileste.projetofinal.dao.ContaDAO;
 import com.unileste.projetofinal.entidades.Cliente;
 import com.unileste.projetofinal.entidades.Conta;
 import com.unileste.projetofinal.entidades.ContaCorrente;
-
-import javax.swing.*;
-import java.awt.*;
+import com.unileste.projetofinal.entidades.ContaPoupanca;
 
 public class ContaPanel extends JPanel {
 
@@ -42,10 +51,31 @@ public class ContaPanel extends JPanel {
     }
 
     private void adicionarConta() {
+
         String num = JOptionPane.showInputDialog("Número da conta:");
         if (num == null || num.isBlank()) return;
 
-        Conta novaConta = new ContaCorrente(num, cliente, 300);
+        String[] tipos = {"Conta Corrente", "Conta Poupança"};
+        String tipo = (String) JOptionPane.showInputDialog(
+            this,
+            "Selecione o tipo de conta",
+            "Tipo de Conta",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            tipos,
+            tipos[0]
+        );
+
+        if (tipo == null) return;
+
+        Conta novaConta;
+
+        if (tipo.equals("Conta Corrente")) {
+            novaConta = new ContaCorrente(num, cliente, 300);
+        } else {
+            novaConta = new ContaPoupanca(num, cliente);
+        }
+
         cliente.adicionarConta(novaConta);
         contaDAO.salvar(novaConta);
         listModel.addElement(novaConta);
