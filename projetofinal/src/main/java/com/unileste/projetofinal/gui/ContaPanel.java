@@ -1,5 +1,6 @@
 package com.unileste.projetofinal.gui;
 
+import com.unileste.projetofinal.dao.ContaDAO;
 import com.unileste.projetofinal.entidades.Cliente;
 import com.unileste.projetofinal.entidades.Conta;
 import com.unileste.projetofinal.entidades.ContaCorrente;
@@ -9,50 +10,50 @@ import java.awt.*;
 
 public class ContaPanel extends JPanel {
 
-    private DefaultListModel<Conta> listModel;
-    private JList<Conta> listaContas;
-    private JButton btnAdicionarConta;
-    private Cliente cliente;
+    private DefaultListModel<Conta> listModel = new DefaultListModel<>();
+    private JList<Conta> listaContas = new JList<>(listModel);
 
-    public ContaPanel(Cliente cliente) {
-        setLayout(new BorderLayout(10, 10));
+    private final Cliente cliente;
+    private final ContaDAO contaDAO;
+
+    public ContaPanel(Cliente cliente, ContaDAO contaDAO) {
+
         this.cliente = cliente;
+        this.contaDAO = contaDAO;
 
-        // Lista de Contas do Cliente
-        listModel = new DefaultListModel<>();
-        listaContas = new JList<>(listModel);
+        setLayout(new BorderLayout(10, 10));
+
         listaContas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(listaContas);
-        add(scrollPane, BorderLayout.CENTER);
+        add(new JScrollPane(listaContas), BorderLayout.CENTER);
 
-        // Botão para adicionar nova conta
-        JPanel panelBotoes = new JPanel();
-        panelBotoes.setLayout(new FlowLayout(FlowLayout.LEFT));
-        btnAdicionarConta = new JButton("Adicionar Conta");
-        btnAdicionarConta.addActionListener(e -> adicionarConta());
-        panelBotoes.add(btnAdicionarConta);
+        JButton btnAdd = new JButton("Adicionar Conta");
+        btnAdd.addActionListener(e -> adicionarConta());
 
-        add(panelBotoes, BorderLayout.SOUTH);
+        JPanel pnl = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnl.add(btnAdd);
+        add(pnl, BorderLayout.SOUTH);
 
-        // Preencher lista de contas
-        carregarContas();
+        carregarContasDoCliente();
     }
 
-    // Carregar as contas do cliente na lista
-    private void carregarContas() {
-        for (Conta conta : cliente.getContas()) {
-            listModel.addElement(conta);
-        }
+    private void carregarContasDoCliente() {
+        listModel.clear();
+        cliente.getContas().forEach(listModel::addElement);
     }
 
-    // Adicionar uma nova conta ao cliente
     private void adicionarConta() {
-        String numeroConta = JOptionPane.showInputDialog(this, "Informe o número da conta:");
-        if (numeroConta != null && !numeroConta.trim().isEmpty()) {
-            Conta novaConta = new ContaCorrente(numeroConta, cliente);  // Exemplo para ContaCorrente
-            cliente.adcionarConta(novaConta);
-            listModel.addElement(novaConta);
-            JOptionPane.showMessageDialog(this, "Conta adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        }
+        String num = JOptionPane.showInputDialog("Número da conta:");
+        if (num == null || num.isBlank()) return;
+
+        Conta novaConta = new ContaCorrente(num, cliente, 300);
+        cliente.adicionarConta(novaConta);
+        contaDAO.salvar(novaConta);
+        listModel.addElement(novaConta);
+
+        JOptionPane.showMessageDialog(this, "Conta adicionada!");
+    }
+
+    public JList<Conta> getListaContas() {
+        return listaContas;
     }
 }
